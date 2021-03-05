@@ -1,15 +1,17 @@
 const express = require('express')
 const mongoose = require('mongoose');
-const authRouter = require('./router');
+const authRouter = require('./authRouter');
 
 const PORT = process.env.PORT || 3000
 const SETTINGS = 'mongodb+srv://qwerty:123@cluster0.ndusm.mongodb.net/authExpress?retryWrites=true&w=majority';
 
 
 const app = express();
-app.use(express.json());
 
- const start = async () => {
+app.use(express.json());
+app.use('/auth', authRouter);
+
+const start = async () => {
   try {
     await mongoose.connect(SETTINGS);
 
